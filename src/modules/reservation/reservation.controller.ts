@@ -9,7 +9,7 @@ export const getAll = async (req: Request, res: Response, next: NextFunction): P
     const reservations = await reservationService.getAllReservations();
     res.status(200).json({ status: 'success', data: reservations });
   } catch (error) {
-    next(error);
+    next(error);  
   }
 };
 

@@ -16,8 +16,20 @@ export class ReservationRepository {
     });
   }
 
-  // 3. إنشاء حجز جديد في قاعدة البيانات
-  // 3. إنشاء حجز جديد في قاعدة البيانات
+  // [جديد] 3. التحقق من وجود حجز مسبق بنفس التاريخ والوقت (معلق أو مؤكد)
+  public async findByDateTime(date: string, time: string) {
+    return await prisma.reservation.findFirst({
+      where: {
+        date: date,
+        time: time,
+        status: {
+          in: ['pending', 'confirmed']
+        }
+      }
+    });
+  }
+
+  // 4. إنشاء حجز جديد في قاعدة البيانات
   public async create(data: CreateReservationInput) {
     return await prisma.reservation.create({
       data: {
@@ -31,7 +43,7 @@ export class ReservationRepository {
     });
   }
 
-  // 4. تحديث حالة الحجز (pending / confirmed / cancelled)
+  // 5. تحديث حالة الحجز (pending / confirmed / cancelled)
   public async updateStatus(id: string, status: 'pending' | 'confirmed' | 'cancelled') {
     return await prisma.reservation.update({
       where: { id },
