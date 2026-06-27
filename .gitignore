@@ -1,0 +1,22 @@
+# ملفات البيئة (الأهم)
+.env
+.env.local
+.env.*.local
+
+# مجلدات المكتبات
+node_modules/
+vendor/
+venv/
+__pycache__/
+
+# ملفات المحررين
+.vscode/
+.idea/
+.DS_Store
+
+# ملفات السجلات والبناء
+logs/
+*.log
+dist/
+build/
+/src/generated/prisma

@@ -1,0 +1,30 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// جدول الحجوزات (القلب النابض للمشروع)
+model Reservation {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   // <--- أضفنا هذا السطر هنا لحفظ إيميل الزبون
+  date      String   // YYYY-MM-DD
+  time      String   // HH:MM
+  guests    Int
+  status    String   @default("pending") // pending, confirmed, cancelled
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// جدول قائمة الطعام (الميزة الإضافية)
+model Menu {
+  id          String   @id @default(uuid())
+  dishName    String   // اسم الطبق
+  price       Float    // سعر الطبق
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

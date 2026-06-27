@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  restaurant-backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: restaurant_backend_container
+    ports:
+      - "3005:3005"
+    environment:
+      - NODE_ENV=production
+      - PORT=3005
+      - DATABASE_URL=file:./dev.db
+      - ADMIN_USERNAME=admin
+      - ADMIN_PASSWORD=SuperSecretAdminPassword2026
+      - JWT_SECRET=your_ultra_secure_jwt_secret_key_here
+      - EMAIL_HOST=smtp.mailtrap.io
+      - EMAIL_PORT=2525
+      - EMAIL_USER=your_smtp_username
+      - EMAIL_PASS=your_smtp_password
+    volumes:
+      - prisma-data:/app/prisma
+
+volumes:
+  prisma-data:
+    driver: local
